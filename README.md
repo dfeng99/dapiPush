@@ -23,7 +23,11 @@ Since most of the supported projects are not natually build for this purpose. We
   1. php-fpm
   2. php-curl
   3. ...etc.
- 4. Configurations
+ 4. mySQL
+    To store some statistics.
+  1. mySQL SSL should be enabled due to we dedicate on ssl secure connection.
+  2. It seems that the successful configuraiotn has dependency on location of CA, certs and keys. I need to put them in     folder /var/lib/mysql on Ububtu 16.04.
+ 5. Configurations
   1. Follow the Nginx configuration guide to configure the ssl support, domain configurations and other misc. You can refere to [this](https://www.digitalocean.com/community/tutorials/how-to-set-up-nginx-with-http-2-support-on-ubuntu-16-04)
   2. Follow the Nginx-clojure [quick start guide](http://nginx-clojure.github.io/quickstart.html) to complete the basic configuration and make sure it work.
   3. The jvm_classpath configuration and java_content_handler and the build path of the package should be consistent, or it will make you in trouble. 
