@@ -36,4 +36,10 @@ Since most of the supported projects are not natually build for this purpose. We
     1. download the dependencies.
     2. configure the Eclipse develpment environment.
  6. there you go! 
-    
+
+#Push Manager(User Interface)
+There is a simple user interface provided. You can find it in the PushManager folder. It is written in PHP and is based on Slim framework. To work with Push Manager, you should also install mysql, php-fpm and [Slim](https://www.slimframework.com/docs/tutorial/first-app.html) framework. There are some configurations need to be followed:
+ 1. Use Database.sql to create the required database and tables.
+ 2. Create user for Push Manager for accessing the database, and modify the login information in the src/public/index.php
+ 3. Modify the authentication mechanism to connect to your token provider server so that the gateway can get the necessary target token information, the gateway itself will not handle the iOS push tokens.
+ 4. If you do not configure /pushTo as the name of push handler in you Nginx-clojure configuraiton then you need to modify it in the code as well.
