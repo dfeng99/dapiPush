@@ -18,6 +18,8 @@ Since most of the supported projects are not natually build for this purpose. We
   3. after all done,
       * make
       * sudo make install
+  4. more about nginx protection
+      naxis[https://github.com/nbs-system/naxsi/wiki]
  3. PHP 7 (Optional)
   If you'd like to build pages to manage the pushes from server, you may need a web contents development environment dependes on your talent. For Nginx you need:
   1. php-fpm
