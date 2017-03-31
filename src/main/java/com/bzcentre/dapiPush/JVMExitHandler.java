@@ -1,10 +1,7 @@
 /**
- * @title			Dapi Push Notification Gateway
- * @version   		0.1
- * @copyright   		Copyright (C) 2017- David Feng, All rights reserved.
- * @license   		GNU General Public License version 3 or later.
- * @author url   	http://www.xflying.com
- * @developers   	David Feng
+ *  Dapi Push Notification Provider for APNS and FCM
+ *  License: MIT
+ *  Copyrights: 2017 
  */
 package com.bzcentre.dapiPush;
 

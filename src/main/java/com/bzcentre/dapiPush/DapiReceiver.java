@@ -47,23 +47,25 @@ import com.google.gson.JsonSyntaxException;
 import com.bzcentre.dapiPush.Receipient;
 import com.bzcentre.dapiPush.ApnsProxy;
 
-/**
- * @author davidfeng
- *
- */
-/**
- * @author davidfeng
- *
- */
 public class DapiReceiver extends TimerTask  implements NginxJavaRingHandler{
-	private final static String hoicoi_token = "DapiIsTheBestAppInTheWorldWhichYouHaveEverMetEnjoyIt."; // This should be the same as the hoicoi Api server side seeting
+	private final static String hoicoi_token = "xxxxxxxx."; // This should be the same as the hoicoi Api server/DapiAir sides seting
 	private final ApnsProxy apnsProxy= new ApnsProxy();
 	Connection dbconn = null;
 	Statement stmt = null;
 	ResultSet rs = null;
+//	private final String testToken="xxxxxxxx";
+//	private final String testNote ="{\"aps\":{\"alert\":{\"title\":\"dapiPush\",\"body\":\"still alive!\"},\"badge\":1,\"sound\":\"default\"},\"acme1\":\"bar\",\"acme2\":42}";
+//	private Timer time = new Timer();
+//	private TimerTask notifyMe;
+//	private Integer counter =0;
+//    private final ApnsPayloadBuilder payloadBuilder = new ApnsPayloadBuilder();
 
 	public DapiReceiver(){
-	}
+//	    payloadBuilder.setAlertBody("Notify Me!");
+//	    payloadBuilder.setBadgeNumber(1);
+//		notifyMe = this;
+//		time.scheduleAtFixedRate(notifyMe, Date.from(Instant.now()), 30*60*1000);
+}
 	
 	@Override
     public Object[] invoke(Map<String, Object> request) {
@@ -75,8 +77,8 @@ public class DapiReceiver extends TimerTask  implements NginxJavaRingHandler{
 		String fcm_token;
 		String apns_token;
 		String payload;
-		Integer isModerator;
-		String dapiToken = newBzToken("dapiPush");
+		Integer isModerator; 
+		String dapiToken = newBzToken("xxxxxx");
 		String errMsg = null;
 		int status;
 		int msgCounter=0;
@@ -99,6 +101,8 @@ public class DapiReceiver extends TimerTask  implements NginxJavaRingHandler{
 					msg = dummy_header + sbfFileContents.toString();
 				} catch (IOException e) {
 					errMsg="IOException"+e.getMessage();
+				} catch(NullPointerException e){
+					errMsg="Null Content, Error :"+e.getMessage();
 				}
 			} else {
 				errMsg ="NO BODY";
@@ -142,8 +146,6 @@ public class DapiReceiver extends TimerTask  implements NginxJavaRingHandler{
 						apns_token = receipient.getApns_Token();
 						fcm_token = receipient.getFcm_Token();
 						isModerator = receipient.getIsMdr();
-//						payloadBuilder.setAlertTitle(payload.alert_title);
-//						payloadBuilder.setAlertBody(payload.alert_body);
 						payload = g.toJson(receipient.getPayload());
 						if(apns_token != null && apns_token != "" && apnsProxy.apnsPush(apns_token,payload)){
 							status = 	NGX_HTTP_NO_CONTENT; //status 204
@@ -260,8 +262,8 @@ public class DapiReceiver extends TimerTask  implements NginxJavaRingHandler{
 	 
 	    // Create a connection to the database
 	    String url = "jdbc:mysql://localhost/DapiPush?autoReconnect=true&useSSL=false&requireSSL=false";
-	    String username = "YourMySQLUserName";
-	    String password = "YourMySQLPassword";
+	    String username = "xxxxxxxx";
+	    String password = "xxxxxxxxxxxxxxxx.";
 	    return DriverManager.getConnection(url, username, password);
 	}
 	  /**

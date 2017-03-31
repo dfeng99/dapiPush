@@ -6,6 +6,10 @@
  * @author url   	http://www.xflying.com
  * @developers   	David Feng
  */
+/*
+ *  https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CommunicatingwithAPNs.html#//apple_ref/doc/uid/TP40008194-CH11-SW1
+ *
+ */
 package com.bzcentre.dapiPush;
 
 import java.io.File;
@@ -24,12 +28,17 @@ import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 import nginx.clojure.NginxClojureRT;
 
-public final class ApnsProxy {
+public final class ApnsProxy {  
 	private static ApnsClient apnsClient;
-	final static String APNs_AuthKey = "path/to/the/authkey";
-	final static String myBundleID = "com.yourbundle.id";
-	final static String myKeyID = "put KEYID here";
-	final static String myTeamID = "put team ID here";
+	//PRODUCTION_APNS_HOST
+	//DEVELOPMENT_APNS_HOST
+	final static String targetHost = ApnsClient.DEVELOPMENT_APNS_HOST;
+//	final static String targetHost = ApnsClient.PRODUCTION_APNS_HOST;
+	final static String APNs_AuthKey = "/usr/local/nginx/conf/ssl/APNsAuthKey_xxxxxx.p8";
+	final static String myKeyID = "xxxxxx";
+	
+	final static String myBundleID = "xxxxxx.xxxxxx.xxxxxx";
+	final static String myTeamID = "xxxxxx";
 	Boolean proxyReady= false;
     
 	public ApnsProxy(){
@@ -61,19 +70,17 @@ public final class ApnsProxy {
 	}
 	
 	public void connect(){
-		
-		final Future<Void> connectFuture = apnsClient.connect(ApnsClient.DEVELOPMENT_APNS_HOST);
-		
+		final Future<Void> connectFuture = apnsClient.connect(targetHost);
 		try {
 			connectFuture.await().addListener(new GenericFutureListener<Future<Void>>(){
 				@Override
 				   public void operationComplete(Future<Void> connectFuture) {
 				         	proxyReady = true;
-				         	NginxClojureRT.log.info("APNs successfully connected!");
+				         	NginxClojureRT.log.info("Successfully connected to APNs host :"+targetHost);
 				     }			
-			});
+			}); 
 		} catch (InterruptedException e) {
-			NginxClojureRT.log.debug("APNs failed to connect!");
+			NginxClojureRT.log.debug("Failed to connect APNs host :"+ targetHost);
 		}
 	}
 	
@@ -84,11 +91,11 @@ public final class ApnsProxy {
 				@Override
 				   public void operationComplete(Future<Void> connectFuture) {
 				         	proxyReady = true;
-				         	NginxClojureRT.log.info("APNs successfully disconnected!");
+				         	NginxClojureRT.log.info("Successfully disconnected from "+targetHost);
 				     }			
 			});
 		} catch (InterruptedException e) {
-			NginxClojureRT.log.debug("Failed to disconnect");
+			NginxClojureRT.log.debug("Failed to disconnect from "+targetHost);
 		}
 	}
 	
@@ -111,13 +118,13 @@ public final class ApnsProxy {
 	    	            sendNotificationFuture.get();
 
 	    	    if (pushNotificationResponse.isAccepted()) {
-	    	        System.out.println("Push notification accepted by APNs gateway.");
+	    	    	NginxClojureRT.log.debug("Push notification accepted by APNs gateway.");
 	    	    } else {
-	    	        System.out.println("Notification rejected by the APNs gateway: " +
+	    	    	NginxClojureRT.log.debug("Notification rejected by the APNs gateway: " +
 	    	                pushNotificationResponse.getRejectionReason());
 
 	    	        if (pushNotificationResponse.getTokenInvalidationTimestamp() != null) {
-	    	            System.out.println("\t…and the token is invalid as of " +
+	    	            NginxClojureRT.log.debug("\t…and the token is invalid as of " +
 	    	                pushNotificationResponse.getTokenInvalidationTimestamp());
 	    	        }
 	    	    }
