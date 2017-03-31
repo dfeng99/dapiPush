@@ -31,13 +31,17 @@ Since most of the supported projects are not natually build for this purpose. We
    1. Follow the Nginx configuration guide to configure the ssl support, domain configurations and other misc. You can refere to [this](https://www.digitalocean.com/community/tutorials/how-to-set-up-nginx-with-http-2-support-on-ubuntu-16-04)
    2. Follow the Nginx-clojure [quick start guide](http://nginx-clojure.github.io/quickstart.html) to complete the basic configuration and make sure it work.
    3. The jvm_classpath configuration and java_content_handler and the build path of the package should be consistent, or it will make you in trouble. 
-   4. Get APNS authentication related staffs from Apple developor site.
+   4. Get APNS authentication related stuffs from Apple developor site.
    5. Setup development environment according to Pussy
     1. download the dependencies.
     2. configure the Eclipse develpment environment.
 6. there you go! 
 
-#Push Manager(User Interface)
+## Notes:
+1. Default log policy only target on info level. enable debug level when needed.
+2. Device Token should match its APNs envirnment i.e. Production/Development.
+
+# Push Manager(User Interface)
 There is a simple user interface provided. You can find it in the PushManager folder. It is written in PHP and is based on Slim framework. To work with Push Manager, you should also install mysql, php-fpm and [Slim](https://www.slimframework.com/docs/tutorial/first-app.html) framework. There are some configurations need to be followed:
  1. Use Database.sql to create the required database and tables.
  2. Create user for Push Manager for accessing the database, and modify the login information in the src/public/index.php
