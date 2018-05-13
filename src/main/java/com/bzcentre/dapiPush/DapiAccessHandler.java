@@ -1,22 +1,42 @@
-/**
- * @title			Dapi Push Notification Gateway
- * @version   		0.1
- * @copyright   		Copyright (C) 2017- David Feng, All rights reserved.
- * @license   		GNU General Public License version 3 or later.
- * @author url   	http://www.xflying.com
- * @developers   	David Feng
+/*
+ * Copyright (c) 2018. David Feng
+ * Package			Dapi Push Notification APNS/FCM Gateway
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ *  of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @author   David Feng
+ * @version 1.0
  */
 package com.bzcentre.dapiPush;
 
 import nginx.clojure.java.NginxJavaRingHandler;
-import static nginx.clojure.java.Constants.*;
 
-import java.io.IOException;
 import java.util.Map;
+
+import static nginx.clojure.MiniConstants.*;
+import static nginx.clojure.java.Constants.*;
+import static nginx.clojure.java.Constants.PHASE_DONE;
 
 public class DapiAccessHandler implements NginxJavaRingHandler {
 
-	public Object[] invoke(Map<String, Object> request) throws IOException{
+	@SuppressWarnings("unchecked")
+	public Object[] invoke(Map<String, Object> request) {
 		if (GET != request.get(REQUEST_METHOD) 
 		        || !"websocket".equals(((Map<String,Object>) request.get(HEADERS)).get("upgrade"))) {
 		      return new Object[]{404, null, null};

@@ -23,33 +23,28 @@
  * @author   David Feng
  * @version 1.0
  */
-package com.bzcentre.dapiPush;
 
-//
-//import nginx.clojure.NginxClojureRT;
+package com.bzcentre.dapiPush.fcm.processors;
 
-public class Receipient implements IReceipient {
-	private String apns_token = null;
-	private String fcm_token = null;
-	private MeetingPayload payload = new MeetingPayload(); // make it flexible for both Apns and FCM
-	
-	public String getApns_Token(){
-		return apns_token;
+import com.bzcentre.dapiPush.FcmProxy;
+import com.bzcentre.dapiPush.fcm.FcmInMessage;
+import com.bzcentre.dapiPush.fcm.FcmOutMessage;
+import com.bzcentre.dapiPush.fcm.FcmSettings;
+import com.bzcentre.dapiPush.fcm.MessageHelper;
+
+public class EchoProcessor implements PayloadProcessor {
+
+	@Override
+	public void handleMessage(FcmInMessage inMessage) {
+		FcmProxy client = FcmProxy.getInstance();
+		String messageId = FcmSettings.getUniqueMessageId();
+		String to = inMessage.getFrom();
+
+		// Send the incoming message to the the device that made the request
+		FcmOutMessage outMessage = new FcmOutMessage(to, messageId, inMessage.getDataPayload());
+		String jsonRequest = MessageHelper.createJsonOutMessage(outMessage);
+		client.fcmPush(jsonRequest);
+
 	}
-	public void setApns_Token(String tk){
-		this.apns_token = tk;
-	}
-	public String getFcm_Token(){
-		return fcm_token;
-	}
-	public void setFcm_Token(String tk){
-		this.fcm_token = tk;
-	}
-	public MeetingPayload getPayload(){
-		return this.payload;
-	}
-	public void setPayload(MeetingPayload mpayload){
-		this.payload = mpayload;
-	}
-	
+
 }

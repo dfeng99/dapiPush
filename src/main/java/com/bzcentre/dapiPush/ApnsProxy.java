@@ -1,10 +1,27 @@
-/**
- * @title			Dapi Push Notification Gateway
- * @version   		0.1
- * @copyright   		Copyright (C) 2017- David Feng, All rights reserved.
- * @license   		GNU General Public License version 3 or later.
- * @author url   	http://www.xflying.com
- * @developers   	David Feng
+/*
+ * Copyright (c) 2018. David Feng
+ * Package			Dapi Push Notification APNS/FCM Gateway
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ *  of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @author   David Feng
+ * @version 1.0
  */
 /*
  *  https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CommunicatingwithAPNs.html#//apple_ref/doc/uid/TP40008194-CH11-SW1
@@ -12,90 +29,93 @@
  */
 package com.bzcentre.dapiPush;
 
+import com.turo.pushy.apns.ApnsClient;
+import com.turo.pushy.apns.ApnsClientBuilder;
+import com.turo.pushy.apns.PushNotificationResponse;
+import com.turo.pushy.apns.auth.ApnsSigningKey;
+import com.turo.pushy.apns.util.SimpleApnsPushNotification;
+import io.netty.util.concurrent.Future;
+import nginx.clojure.NginxClojureRT;
+
 import java.io.File;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Timestamp;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
-import com.relayrides.pushy.apns.ApnsClient;
-import com.relayrides.pushy.apns.ApnsClientBuilder;
-import com.relayrides.pushy.apns.ClientNotConnectedException;
-import com.relayrides.pushy.apns.PushNotificationResponse;
-import com.relayrides.pushy.apns.util.SimpleApnsPushNotification;
-
-import io.netty.util.concurrent.Future;
-import io.netty.util.concurrent.GenericFutureListener;
-import nginx.clojure.NginxClojureRT;
+import static com.bzcentre.dapiPush.dapiSecrets.*;
 
 public final class ApnsProxy {  
-	private static ApnsClient apnsClient;
-	//PRODUCTION_APNS_HOST
-	//DEVELOPMENT_APNS_HOST
-	final static String targetHost = ApnsClient.DEVELOPMENT_APNS_HOST;
-//	final static String targetHost = ApnsClient.PRODUCTION_APNS_HOST;
-	final static String APNs_AuthKey = "/usr/local/nginx/conf/ssl/APNsAuthKey_xxxxxx.p8";
-	final static String myKeyID = "xxxxxx";
 	
-	final static String myBundleID = "xxxxxx.xxxxxx.xxxxxx";
-	final static String myTeamID = "xxxxxx";
+	private  ApnsClient apnsClient;
+	final static String apnsHost = ApnsClientBuilder.DEVELOPMENT_APNS_HOST;
+//	final static String apnsHost = ApnsClientBuilder.PRODUCTION_APNS_HOST;
+	final static int defaultPort = ApnsClientBuilder.DEFAULT_APNS_PORT;
+	final static int alterPort = ApnsClientBuilder.ALTERNATE_APNS_PORT;
+	final static long defaultPingIdleTime = ApnsClientBuilder.DEFAULT_PING_IDLE_TIME_MILLIS;
+	final static String TAG="[ApnsProxy][Worker:"+NginxClojureRT.processId+"]";
 	Boolean proxyReady= false;
-    
-	public ApnsProxy(){
+	private static ApnsProxy sInstance = null;
+	private static long clientID = new Timestamp(System.currentTimeMillis()).getTime();
+	
+	public static ApnsProxy getInstance() {
+		if (sInstance == null) {
+			throw new IllegalStateException("You have to prepare the apns proxy first");
+		}
+		return sInstance;
+	}
+	
+	public static ApnsProxy prepareClient() {
+		synchronized (ApnsProxy.class) {
+			if (sInstance == null) {
+				sInstance = new ApnsProxy();
+			}
+		}
+		return sInstance;
+	}
+	
+	private ApnsProxy(){
 //		final String developmentServer = "api.development.push.apple.com:443";
 		//	private final String productionServer = "api.push.apple.com:443";
-
+		NginxClojureRT.log.debug(TAG+"Starting APNs proxy ... ... ...");
 		try {
-			apnsClient = new ApnsClientBuilder().build(); // Token based authentication
+			apnsClient = new ApnsClientBuilder().setApnsServer(apnsHost).
+					setIdlePingInterval(defaultPingIdleTime, TimeUnit.MILLISECONDS).
+					setSigningKey(
+							ApnsSigningKey.loadFromPkcs8File(
+									new File(APNs_AuthKey), 
+									myTeamID, 
+									myKeyID)
+					).build(); // Token based authentication
 			
-//			final ApnsClient apnsClient = new ApnsClientBuilder() // TLS based authentication
-//			        .setClientCredentials(new File("/path/to/certificate.p12"), "p12-file-password")
-//			        .build();
-			
-			apnsClient.registerSigningKey(new File(APNs_AuthKey),
-					myTeamID, myKeyID,myBundleID);
-			
-			connect();
-			
+				proxyReady = true;
+				NginxClojureRT.log.info(TAG+"APNs proxy initiated ---"+clientID);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+ 			NginxClojureRT.log.info(TAG+"APNs blacklist: IOException error=");
 			e.printStackTrace();
 		} catch (InvalidKeyException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+ 			NginxClojureRT.log.info(TAG+"APNs blacklist: InvalidKeyException error=");
+ 			e.printStackTrace();
 		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+ 			NginxClojureRT.log.info(TAG+"APNs blacklist: NoSuchAlgorithmException error=");
+ 			e.printStackTrace();
 		} 
 	}
 	
-	public void connect(){
-		final Future<Void> connectFuture = apnsClient.connect(targetHost);
-		try {
-			connectFuture.await().addListener(new GenericFutureListener<Future<Void>>(){
-				@Override
-				   public void operationComplete(Future<Void> connectFuture) {
-				         	proxyReady = true;
-				         	NginxClojureRT.log.info("Successfully connected to APNs host :"+targetHost);
-				     }			
-			}); 
-		} catch (InterruptedException e) {
-			NginxClojureRT.log.debug("Failed to connect APNs host :"+ targetHost);
-		}
-	}
-	
 	public void disconnect(){
-		final Future<Void> disconnectFuture = apnsClient.disconnect();
+		final Future<Void> closeFuture = apnsClient.close();
 		try {
-			disconnectFuture.await().addListener(new GenericFutureListener<Future<Void>>(){
-				@Override
-				   public void operationComplete(Future<Void> connectFuture) {
-				         	proxyReady = true;
-				         	NginxClojureRT.log.info("Successfully disconnected from "+targetHost);
-				     }			
+			closeFuture.await().addListener((Future<Void> connectFuture)->{ //lambda expression
+		         	NginxClojureRT.log.info(TAG+"Successfully disconnected from "+apnsHost+"-"+clientID);
+				         	proxyReady = false;
+				         	apnsClient = null;
+				         	clientID=0;
 			});
 		} catch (InterruptedException e) {
-			NginxClojureRT.log.debug("Failed to disconnect from "+targetHost);
+			e.printStackTrace();
+			NginxClojureRT.log.debug(TAG+"Failed to disconnect from "+apnsHost);
 		}
 	}
 	
@@ -103,57 +123,33 @@ public final class ApnsProxy {
 		return proxyReady;
 	}
 	
-	public Boolean apnsPush(String myToken,String myPayload){
+	public Boolean isConnected(){
+		return (apnsClient != null);
+	}
+	
+	public PushNotificationResponse<SimpleApnsPushNotification> apnsPush(String myToken,String myPayload){
+		NginxClojureRT.log.debug(TAG+"Pushing through APNs gateway.");
 	    if(proxyReady){
+	    	
 	    	final SimpleApnsPushNotification pushNotification;
 	    	{
 	    	    pushNotification =  new SimpleApnsPushNotification(myToken, myBundleID, myPayload);
 	    	}
 	    	
 	    	final Future<PushNotificationResponse<SimpleApnsPushNotification>> sendNotificationFuture =
-	    			apnsClient.sendNotification(pushNotification);
+	    																	apnsClient.sendNotification(pushNotification);
+	    	
+	    	NginxClojureRT.log.debug(TAG+"waitting for apns response");
 	    	
 	    	try {
-	    	    final PushNotificationResponse<SimpleApnsPushNotification> pushNotificationResponse =
-	    	            sendNotificationFuture.get();
-
-	    	    if (pushNotificationResponse.isAccepted()) {
-	    	    	NginxClojureRT.log.debug("Push notification accepted by APNs gateway.");
-	    	    } else {
-	    	    	NginxClojureRT.log.debug("Notification rejected by the APNs gateway: " +
-	    	                pushNotificationResponse.getRejectionReason());
-
-	    	        if (pushNotificationResponse.getTokenInvalidationTimestamp() != null) {
-	    	            NginxClojureRT.log.debug("\t…and the token is invalid as of " +
-	    	                pushNotificationResponse.getTokenInvalidationTimestamp());
-	    	        }
-	    	    }
-	    	} catch (final ExecutionException e) {
-	    		 NginxClojureRT.log.debug("Failed to send push notification.");
-	    	    e.printStackTrace();
-
-	    	    if (e.getCause() instanceof ClientNotConnectedException) {
-	    	    	NginxClojureRT.log.debug("Waiting for client to reconnect…");
-	    	        try {
-						apnsClient.getReconnectionFuture().await();
-					} catch (InterruptedException e1) {
-						 NginxClojureRT.log.debug("Failed to reconnect.");
-						 return false;
-					}
-	    	        NginxClojureRT.log.debug("Reconnected. Message maybe not being sent!");
-	    	    }
-	    	} catch (InterruptedException e) {
-	    		NginxClojureRT.log.debug("apnsPush: InterruptedException");
-	    		return false;
+				return sendNotificationFuture.get();
+			} catch (InterruptedException | ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-	    	return true;
 		} else {
-			NginxClojureRT.log.debug("APNs push failed!  provider  disconnected!");
+			NginxClojureRT.log.info(TAG+"APNs push failed!  provider  disconnected!");
 		}
-		return false;
-	}
-	
-	public Boolean fcmPush(String myToken, String myPayload){
-		return false;
+		return null;
 	}
 }

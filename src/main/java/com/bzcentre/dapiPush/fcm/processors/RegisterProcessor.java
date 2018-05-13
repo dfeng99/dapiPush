@@ -23,33 +23,20 @@
  * @author   David Feng
  * @version 1.0
  */
-package com.bzcentre.dapiPush;
 
-//
-//import nginx.clojure.NginxClojureRT;
+package com.bzcentre.dapiPush.fcm.processors;
 
-public class Receipient implements IReceipient {
-	private String apns_token = null;
-	private String fcm_token = null;
-	private MeetingPayload payload = new MeetingPayload(); // make it flexible for both Apns and FCM
-	
-	public String getApns_Token(){
-		return apns_token;
-	}
-	public void setApns_Token(String tk){
-		this.apns_token = tk;
-	}
-	public String getFcm_Token(){
-		return fcm_token;
-	}
-	public void setFcm_Token(String tk){
-		this.fcm_token = tk;
-	}
-	public MeetingPayload getPayload(){
-		return this.payload;
-	}
-	public void setPayload(MeetingPayload mpayload){
-		this.payload = mpayload;
-	}
-	
+import com.bzcentre.dapiPush.fcm.FcmInMessage;
+
+/**
+ * Handles a user registration request
+*/
+public class RegisterProcessor implements PayloadProcessor {
+
+		@Override
+		public void handleMessage(FcmInMessage msg) {
+			// TODO: handle the user registration. Keep in mind that a user name can
+			// have more reg IDs associated. The messages IDs should be unique. 
+		}
+
 }

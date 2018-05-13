@@ -23,33 +23,59 @@
  * @author   David Feng
  * @version 1.0
  */
-package com.bzcentre.dapiPush;
 
-//
-//import nginx.clojure.NginxClojureRT;
+package com.bzcentre.dapiPush.fcm;
+import java.util.Map;
 
-public class Receipient implements IReceipient {
-	private String apns_token = null;
-	private String fcm_token = null;
-	private MeetingPayload payload = new MeetingPayload(); // make it flexible for both Apns and FCM
-	
-	public String getApns_Token(){
-		return apns_token;
+/**
+ * Represents an incoming message from FCM CCS
+ */
+public class FcmInMessage {
+	// Sender registration ID
+	private String from;
+	// Sender app's package
+	private String category;
+	// Unique id for this message
+	private String messageId;
+	// Payload data. A String in JSON format
+	private Map<String, Object> dataPayload;
+
+	public FcmInMessage(String from, String category, String messageId, Map<String, Object> dataPayload) {
+		this.from = from;
+		this.category = category;
+		this.messageId = messageId;
+		this.dataPayload = dataPayload;
 	}
-	public void setApns_Token(String tk){
-		this.apns_token = tk;
+
+	public String getFrom() {
+		return from;
 	}
-	public String getFcm_Token(){
-		return fcm_token;
+
+	public void setFrom(String from) {
+		this.from = from;
 	}
-	public void setFcm_Token(String tk){
-		this.fcm_token = tk;
+
+	public String getCategory() {
+		return category;
 	}
-	public MeetingPayload getPayload(){
-		return this.payload;
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
-	public void setPayload(MeetingPayload mpayload){
-		this.payload = mpayload;
+
+	public String getMessageId() {
+		return messageId;
 	}
-	
+
+	public void setMessageId(String messageId) {
+		this.messageId = messageId;
+	}
+
+	public Map<String, Object> getDataPayload() {
+		return dataPayload;
+	}
+
+	public void setDataPayload(Map<String, Object> dataPayload) {
+		this.dataPayload = dataPayload;
+	}
 }

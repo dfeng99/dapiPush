@@ -23,33 +23,55 @@
  * @author   David Feng
  * @version 1.0
  */
+
 package com.bzcentre.dapiPush;
 
-//
-//import nginx.clojure.NginxClojureRT;
+import com.bzcentre.dapiPush.MeetingPayload.Aps;
 
-public class Receipient implements IReceipient {
-	private String apns_token = null;
-	private String fcm_token = null;
-	private MeetingPayload payload = new MeetingPayload(); // make it flexible for both Apns and FCM
+import java.util.ArrayList;
+
+public interface IMeetingPayload {
+	Aps getAps();
 	
-	public String getApns_Token(){
-		return apns_token;
-	}
-	public void setApns_Token(String tk){
-		this.apns_token = tk;
-	}
-	public String getFcm_Token(){
-		return fcm_token;
-	}
-	public void setFcm_Token(String tk){
-		this.fcm_token = tk;
-	}
-	public MeetingPayload getPayload(){
-		return this.payload;
-	}
-	public void setPayload(MeetingPayload mpayload){
-		this.payload = mpayload;
-	}
+	String getDapi();
 	
+	void setDapi(Object dapi);
+	
+	String getAcme1();
+	
+	//ownerID
+	void setAcme1(Object st);
+	
+	//maxRoomSize
+	void setAcme2(Object st);
+	
+	int getAcme3();
+	
+	//roomType
+	void setAcme3(Object st);
+	
+	int getAcme4();
+	
+	//paymentType
+	void setAcme4(Object st);
+	
+	long getAcme5();
+	
+	//invitationTime
+	void setAcme5(Object st);
+	
+	Boolean getAcme6();
+	
+	//isModerator
+	void setAcme6(Object st);
+	
+	ArrayList<String> getAcme7();
+	
+	//attendees
+	void setAcme7(Object st);
+	
+	String getAcme8();
+	
+	//ownerID
+	void setAcme8(Object st);
 }

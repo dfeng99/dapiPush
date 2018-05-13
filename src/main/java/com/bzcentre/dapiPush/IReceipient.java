@@ -23,33 +23,14 @@
  * @author   David Feng
  * @version 1.0
  */
+
 package com.bzcentre.dapiPush;
 
-//
-//import nginx.clojure.NginxClojureRT;
-
-public class Receipient implements IReceipient {
-	private String apns_token = null;
-	private String fcm_token = null;
-	private MeetingPayload payload = new MeetingPayload(); // make it flexible for both Apns and FCM
-	
-	public String getApns_Token(){
-		return apns_token;
-	}
-	public void setApns_Token(String tk){
-		this.apns_token = tk;
-	}
-	public String getFcm_Token(){
-		return fcm_token;
-	}
-	public void setFcm_Token(String tk){
-		this.fcm_token = tk;
-	}
-	public MeetingPayload getPayload(){
-		return this.payload;
-	}
-	public void setPayload(MeetingPayload mpayload){
-		this.payload = mpayload;
-	}
-	
+public interface IReceipient {
+	String getApns_Token();
+	void setApns_Token(String tk);
+	String getFcm_Token();
+	void setFcm_Token(String tk);
+	MeetingPayload getPayload();
+	void setPayload(MeetingPayload mpayload);
 }
