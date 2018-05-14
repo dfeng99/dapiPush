@@ -37,8 +37,20 @@ Since most of the supported projects are not natually build for this purpose. We
     2. Configure the IDE which you are familiar with (Eclipse,Intellij IDEA...).
     3. Modify each secret keys according to your configruations in dapiSecrets.java.
     
-6. there you go! 
-
+6. there you go! Start the nginx web server with the following command.
+  sudo nginx
+  
+## Interactive with the dapiPush gateway:
+When all configuraions task done, your app needs to interact with dapiPush Gateway thrugh http/https protocol. The query url  is like:
+  https://yourdomain/ServiceHandler
+  with POST parameters
+  chk_token : a token to validate the request. Your app should generate the token as the gateway did i.e.
+              DigestUtils.sha1Hex(seed + hoicoi_token) where seed and hoicoi_token are strings defined in dapiSecrets.java.
+  user_id: the sender's id.
+  inivitations: a base64 encoded json array that contains receipents list.
+  payload: is as APNS message payload defined, FCM message needs to map to it.
+  
+  
 ## Notes:
 1. Default log policy only target on info level. enable debug level when needed.
 2. Device Token should match its release status i.e. Production/Development.
