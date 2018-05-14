@@ -1,13 +1,13 @@
 # dapiPush
 ## What is the project?
-  dapiPush is a APNS/FCM gateway which accept push notification send request from mobile apps to other devices which either iOS devices(through APNS)  or Android devices(through FCM). dapiPush will only handle those apps which registered as an authorized provider, so apps should presntion its authorized tokens provide by the authorizd provider.
+  dapiPush is a APNS/FCM gateway which accept push notification send requests from apps to other devices which either iOS devices(through APNS)  or Android devices(through FCM). dapiPush will only handle those notifications which app has registered as an authorized provider, so apps should presntion its authorized tokens provide by the authorizd provider.
 ## idea
-The idea is to leverage a web server to support http2 layer to accept the remote push notification request from apps. A java servlet is designed to communicate with web Server without a web container (Tomcat,JBoss...etc) then process the received notifications and dispatch them either through APNS or FCM.
+The idea is to leverage a web server(NGINX) to support http2 layer and transit the remote push notification requests from apps to either APNS or FCM. A java servlet is designed with nginx-clojure to communicate with web server without a web container (Tomcat,JBoss...etc) then process the received notifications and dispatch to end devices.
 ## System Requirements:
 Since most of the supported projects are not natually build for this purpose. We need to build the develpment environment from sources.
 1. OS : Ubuntu 16.04
 2. Nginx-clojure 
-   1. We choose Nginx-clojure project as our web server as it provids the capability to let java talk to Nginx direcly wihout a middle web contanier. This is trying to prevent the contrains which indicate in the [Push Github wiki](https://github.com/relayrides/pushy/wiki/Using-Pushy-in-an-application-container). 
+   1. We choose Nginx-clojure framework as an interface between web server and APNS/FCM. It provids the capability to let java talk to Nginx direcly wihout a middle web contanier. This is trying to prevent the contrains which indicate in the [Push Github wiki](https://github.com/relayrides/pushy/wiki/Using-Pushy-in-an-application-container). 
    2. The binary version does not support http2, so you need to download the latest nginx-clojure source from [here](https://github.com/nginx-clojure/nginx-clojure/releases), and build it yourself.
 3. Nginx
    1. to support http2, in additation to the module source specified by nginx-clojure, we need to build with Nginx http-v2-module as and --with-mod_ssl as well. The following configuration is for reference:
