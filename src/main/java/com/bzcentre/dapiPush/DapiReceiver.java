@@ -200,7 +200,7 @@ public class DapiReceiver extends TimerTask  implements NginxJavaRingHandler , L
 				NginxClojureRT.log.info(TAG+"user "+user_id+" is sending "+invitees.size()+" push token(s) to user(s) "
 						+g.toJson(invitees.get(0).getPayload().getAcme7()));
 				// receipient={"fcm_token","apns_token","payload"}
-				// payload class is as APNS message payload, FCM needs to re-arrange it.
+				// payload class is as APNS message payload defined, FCM needs to map to it.
 				msgCounter.countdown = invitees.size();
 				NginxClojureRT.log.info(TAG+"msgCounter[countdown,apns,fcm]:"+msgCounter.list());
 				for(Receipient receipient : invitees){
