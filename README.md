@@ -1,8 +1,8 @@
 # dapiPush
 ## What is the project?
-  This project is planning to build a APNS gateway which accept push notification request from iOS apps to APNS. This application will only handle those iOS apps request which registered to an authorized provider, so it only act as a gateway. apps should presntion its authorized token provide by the authorizd provider and the destination token which will present to the APNS.
+  dapiPush is a APNS/FCM gateway which accept push notification send request from mobile apps to other devices which either iOS devices(through APNS)  or Android devices(through FCM). dapiPush will only handle those apps which registered as an authorized provider, so apps should presntion its authorized tokens provide by the authorizd provider.
 ## idea
-The idea is to leverage a web server to support http2 layer to accept the remote push notification request from iOS apps. A java servlet base on [Pushy library](https://github.com/relayrides/pushy) and will communicate with web Server without a web container (Tomcat,JBoss...etc) then process the rest of the works.
+The idea is to leverage a web server to support http2 layer to accept the remote push notification request from apps. A java servlet is designed to communicate with web Server without a web container (Tomcat,JBoss...etc) then process the received notifications and dispatch them either through APNS or FCM.
 ## System Requirements:
 Since most of the supported projects are not natually build for this purpose. We need to build the develpment environment from sources.
 1. OS : Ubuntu 16.04
@@ -32,14 +32,16 @@ Since most of the supported projects are not natually build for this purpose. We
    2. Follow the Nginx-clojure [quick start guide](http://nginx-clojure.github.io/quickstart.html) to complete the basic configuration and make sure it work.
    3. The jvm_classpath configuration and java_content_handler and the build path of the package should be consistent, or it will make you in trouble. 
    4. Get APNS authentication related stuffs from Apple developor site.
-   5. Setup development environment according to Pussy
-    1. download the dependencies.
-    2. configure the Eclipse develpment environment.
+   5. Setup development environment according to [Pussy](https://github.com/relayrides/pushy/wiki) and [smack](https://www.igniterealtime.org/projects/smack/)
+    1. Make sure the nginx-clojure jar files and all dependencies are in your CLASSPATH.
+    2. Configure the IDE which you are familiar with (Eclipse,Intellij IDEA...).
+    3. Modify each secret keys according to your configruations in dapiSecrets.java.
+    
 6. there you go! 
 
 ## Notes:
 1. Default log policy only target on info level. enable debug level when needed.
-2. Device Token should match its APNs envirnment i.e. Production/Development.
+2. Device Token should match its release status i.e. Production/Development.
 
 # Push Manager(User Interface)
 There is a simple user interface provided. You can find it in the PushManager folder. It is written in PHP and is based on Slim framework. To work with Push Manager, you should also install mysql, php-fpm and [Slim](https://www.slimframework.com/docs/tutorial/first-app.html) framework. There are some configurations need to be followed:
