@@ -1,6 +1,6 @@
 # dapiPush
 ## What is the project?
-  dapiPush is a APNS/FCM gateway which accept push notification send requests from apps to other devices which either iOS devices(through APNS)  or Android devices(through FCM). dapiPush will only handle those notifications which app has registered as an authorized provider, so apps should presntion its authorized tokens provide by the authorizd provider.
+  dapiPush is a APNS/FCM gateway which accept push notification send requests from apps to other devices which either iOS devices(through APNS)  or Android devices(through FCM). dapiPush will only handle those notifications which app has registered as an authorized provider, so apps should present its authorized tokens provide by the service providers.
 ## idea
 The idea is to leverage a web server(NGINX) to support http2 layer and transit the remote push notification requests from apps to either APNS or FCM. A java servlet is designed with nginx-clojure to communicate with web server without a web container (Tomcat,JBoss...etc) then process the received notifications and dispatch to end devices.
 ## System Requirements:
