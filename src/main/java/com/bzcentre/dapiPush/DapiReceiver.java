@@ -1,27 +1,18 @@
 /*
  * Copyright (c) 2018. David Feng
- * Package			Dapi Push Notification APNS/FCM Gateway
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- *  of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
+ *  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
+ *  files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy,
+ *  modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the
+ *  Software is furnished to do so, subject to the following conditions:
  *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
+ *  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
  *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- * @author   David Feng
- * @version 1.0
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+ *  LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ *  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ *  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+ *  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 package com.bzcentre.dapiPush;
 
@@ -69,14 +60,7 @@ public class DapiReceiver extends TimerTask  implements NginxJavaRingHandler , L
 	Connection dbconn = null;
 	Statement stmt = null;
 	Statement BLKCheck=null;
-//	ResultSet rs = null;
 	String errMsg = null;
-//	private final String testToken="fc1b268ccc95e15c646cc17d9886fc8ee4b43835044c98669d19765c852d229f";
-//	private final String testNote ="{\"aps\":{\"alert\":{\"title\":\"dapiPush\",\"body\":\"still alive!\"},\"badge\":1,\"sound\":\"default\"},\"acme1\":\"bar\",\"acme2\":42}";
-//	private Timer time = new Timer();
-//	private TimerTask notifyMe;
-//	private Integer counter =0;
-//    private final ApnsPayloadBuilder payloadBuilder = new ApnsPayloadBuilder();
 	public static Set<NginxHttpServerChannel> serverSentEventSubscribers;
 	
 	public DapiReceiver(){
@@ -144,7 +128,7 @@ public class DapiReceiver extends TimerTask  implements NginxJavaRingHandler , L
 		@SuppressWarnings("unused")
 		Integer isModerator;
 		String query;
-		String dapiToken = newBzToken("dapiPush");
+		String dapiToken = newBzToken(service_seed);
 		int push_status = NGX_HTTP_FORBIDDEN;
 
 		GsonBuilder gBuilder = new GsonBuilder();

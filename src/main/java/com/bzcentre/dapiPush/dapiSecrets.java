@@ -14,24 +14,30 @@
  *  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  *  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 package com.bzcentre.dapiPush;
 
-import nginx.clojure.java.NginxJavaRingHandler;
+public final class dapiSecrets {
 
-import java.util.Map;
+    private dapiSecrets() {
+        //restrict instantiation.
+    }
 
-import static nginx.clojure.MiniConstants.*;
-import static nginx.clojure.java.Constants.*;
-import static nginx.clojure.java.Constants.PHASE_DONE;
+    // secrets for APNS
+    public static final String APNs_AuthKey = "";
+    public static final String myKeyID = "";
+    public static final String myBundleID = "";
+    public static final String myTeamID = "";
 
-public class DapiAccessHandler implements NginxJavaRingHandler {
+    // secrets for FCM
+    public static final char[] JKS_PASSWORD = "".toCharArray();
+    public static final String FCM_AuthKey = "";
+    public static final String JAVA_TRUSTSTORE = "";
 
-	@SuppressWarnings("unchecked")
-	public Object[] invoke(Map<String, Object> request) {
-		if (GET != request.get(REQUEST_METHOD) 
-		        || !"websocket".equals(((Map<String,Object>) request.get(HEADERS)).get("upgrade"))) {
-		      return new Object[]{404, null, null};
-		    }
-	    return PHASE_DONE;
-	  }
+    // secrets for dapiManager
+    public static final String hoicoi_token = "";
+    public static final String service_seed = "";
+    public static final String dbUsername = "";
+    public static final String dbPassword = "";
+
 }
