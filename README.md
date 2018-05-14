@@ -42,14 +42,31 @@ Since most of the supported projects are not natually build for this purpose. We
   
 ## Interactive with the dapiPush gateway:
 When all configuraions task done, your app needs to interact with dapiPush Gateway thrugh http/https protocol. The query url  is like:
-  https://yourdomain/ServiceHandler
-  with POST parameters
-  chk_token : a token to validate the request. Your app should generate the token as the gateway did i.e.
+  - `https://yourdomain/ServiceHandler`
+    - with POST parameters
+      - chk_token : a token to validate the request. Your app should generate the token as the gateway did i.e.
               DigestUtils.sha1Hex(seed + hoicoi_token) where seed and hoicoi_token are strings defined in dapiSecrets.java.
-  user_id: the sender's id.
-  inivitations: a base64 encoded json array that contains receipents list.
-  payload: is as APNS message payload defined, FCM message needs to map to it.
-  
+      - user_id: the sender's id.
+      - inivitations: a base64 encoded json array that contains receipents list and payload.
+        - example of an invitation object structure is as below:
+          - payload: is as APNS message payload defined, FCM message needs to map to it.
+```
+        invitation.fcm_token = FCM_TOKEN;
+        invitation.apns_token= APNS_TOKEN;
+        invitation.payload.aps.alert.title = MESSAGE_TITLE; 
+        invitation.payload.aps.alert.body 	= MESSAGE_BODY;
+        invitation.payload.aps.alert["action-loc-key"] = SOME_KEY;
+        invitation.payload.aps.badge 	=  BADGE_NUM;
+        invitation.payload.aps.sound 	= 'default';
+        invitation.payload.acme1 = ACME1;
+        invitation.payload.acme2 = ACME2; 
+        invitation.payload.acme3 = ACME3; 
+        invitation.payload.acme4 = ACME4; 
+        invitation.payload.acme5 = ACME5;
+        invitation.payload.acme6 = ACME6;
+        invitation.payload.acme7 = ACME7;
+        invitation.payload.acme8 = ACME8;
+```          
   
 ## Notes:
 1. Default log policy only target on info level. enable debug level when needed.
