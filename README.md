@@ -1,12 +1,21 @@
 # dapiPush
 A push notification gateway to APNS/FCM.
 
+## Required Knowleges:
+1. Apple Push Notification Service and Firebase Cloud Messaging architecture and programming.
+2. Computer languages: Java, php(Optional)
+3. Java truststore.
+4. Nginx Configuraiton
+5. Nginx-clojure framework api
+6. http/http2 protocol
+7. MySQL 
+
 ## System Requirements:
 Since most of the supported projects are not natually build for this purpose. We need to build the develpment environment from sources.
 1. OS : Ubuntu 16.04
 2. Nginx-clojure 
-   1. We choose Nginx-clojure framework as an interface between web server and APNS/FCM. It provids the capability to let java talk to Nginx direcly wihout a middle web contanier. This is trying to prevent the contrains which indicate in the [Push Github wiki](https://github.com/relayrides/pushy/wiki/Using-Pushy-in-an-application-container). 
-   2. The binary version does not support http2, so you need to download the latest nginx-clojure source from [here](https://github.com/nginx-clojure/nginx-clojure/releases), and build it yourself.
+   1. We choose Nginx-clojure framework as an interface between web server and APNS/FCM. It provids the capability to let java talk to Nginx direcly wihout a middle web contanier. This is trying to prevent the constrain which is indicated in the [Pushy Github wiki](https://github.com/relayrides/pushy/wiki/Using-Pushy-in-an-application-container). 
+   2. If the Nginx binary version does not support http2, you will need to download the latest nginx-clojure source from [here](https://github.com/nginx-clojure/nginx-clojure/releases), and build it with http2 capability yourself.
 3. Nginx
    1. to support http2, in additation to the module source specified by nginx-clojure, we need to build with Nginx http-v2-module as and --with-mod_ssl as well. The following configuration is for reference:
 *./configure --user=www-data --add-module=../nginx-clojure/src/c --with-http_ssl_module --with-zlib=../zlib-1.2.8.dfsg --with-http_v2_module --with-ipv6*
