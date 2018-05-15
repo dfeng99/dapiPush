@@ -44,8 +44,13 @@ Since most of the supported projects are not natually build for this purpose. We
     2. Configure the IDE which you are familiar with (Eclipse,Intellij IDEA...).
     3. Modify each secret keys according to your configruations in dapiSecrets.java.
     
-6. there you go! Start the nginx web server with the following command.
-  sudo nginx
+6. There you go! Now start the nginx web server with the following command.
+
+      `sudo nginx` 
+      
+            or 
+            
+      `sudo nginx -s reload` (if it has been loaded already)
   
 ## Interactive with the dapiPush gateway:
 When all configuraions task done, your app needs to interact with dapiPush Gateway thrugh http/https protocol. The query url  is like:
@@ -77,7 +82,7 @@ When all configuraions task done, your app needs to interact with dapiPush Gatew
   
 ## Notes:
 1. Default log policy only target on info level. enable debug level when needed.
-2. Device Token should match its release status i.e. Production/Development.
+2. Device Token should match the servers that you connected i.e. Production/Development.
 
 # Push Manager(User Interface)
 There is a simple user interface provided. You can find it in the PushManager folder. It is written in PHP and is based on Slim framework. To work with Push Manager, you should also install mysql, php-fpm and [Slim](https://www.slimframework.com/docs/tutorial/first-app.html) framework. There are some configurations need to be followed:
