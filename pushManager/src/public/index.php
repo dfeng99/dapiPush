@@ -4,7 +4,7 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 require '../vendor/autoload.php';
 function newBzToken($seed){
-		$_hoicoi_token = "youShouldHaveYourOwnTokenMechanismWithYourApp";
+		$_hoicoi_token = "fc1b268ccc95e15c646cd9886fc8ee4b43835044c98669d19765c852d229f."; // This should be the same as the hoicoi Api server/DapiAir sides seting
 	return sha1($seed.$_hoicoi_token);
 }
 
@@ -17,7 +17,7 @@ $config['addContentLengthHeader'] = false;
 
 $config['db']['host']   = "localhost";
 $config['db']['user']   = "pushManager";
-$config['db']['pass']   = "PushManagerDatabasePasswordHere";
+$config['db']['pass']   = "ncsoowDw)000";
 $config['db']['dbname'] = "DapiPush";
 
 $app = new \Slim\App(["settings" => $config]);
@@ -49,7 +49,7 @@ $container = $app->getContainer();
 		// get all callees' token
 		$userData=array(
 		        'username' => 'pushGateway', // tokens server login information
-		        'password' => 'UserPasswordOfYourTokenProviderServer',
+		        'password' => 'jas8kjDa99jk0wjegh',
 		        'invitees' => '*'
 		);
 		$postdata = http_build_query($userData);
@@ -61,7 +61,7 @@ $container = $app->getContainer();
 				)
 			);
 		$context = stream_context_create($opts);
-		$callees = file_get_contents("https://www.YOURTOKESERVER.com/index.php?QUERYSTRINGi&task=getInviteesToken&bzToken=".newBzToken($userData['password']),false,$context);
+		$callees = file_get_contents("https://www.bzcentre.com/index.php?option=com_hoicoiapi&task=getInviteesToken&bzToken=".newBzToken($userData['password']),false,$context);
 		$toWhom = json_decode($callees);
 		return $toWhom;
 	};
@@ -107,7 +107,7 @@ $app->get('/js/{name}', function (Request $request, Response $response, $args) {
 	$response = $this->javascript->render($response, $args['name']);
     	return $response;
 });
-
+// Form process here
 $app->post('/dapiPush', function (Request $request, Response $response) {
  	session_start();
 	$data = $request->getParsedBody();
@@ -120,20 +120,21 @@ $app->post('/dapiPush', function (Request $request, Response $response) {
 	foreach( $data['toWhom'] as $toWhom ){
 		$tokens = json_decode( urldecode($toWhom) );
 		$data['apns_badge'] = $tokens->apns_badge;
-		if( $payload->create_apns_payload($data) || $payload->create_fcm_payload($data) ){
+		$data['fcm_badge'] = $tokens->fcm_badge;
+		if( ($tokens->apns && ($result = $payload->create_apns_payload($data)) ===true) || ($tokens->fcm && ($result =$payload->create_fcm_payload($data) )=== true)){
 			$callee->apns_token = $tokens->apns;
 			$callee->fcm_token = $tokens->fcm;
-			$callee->isMdr = 0;
 			$callee->payload = $payload->obj_apns;
 			$callees[] = $callee;
+			$callee = new stdClass();
 		} else {
-	  		$this->logger->addInfo("Failed to create payload:".$toWhom);
+	  		$this->logger->addInfo("Failed to create payload:".($result > 0) ? $result : $toWhom);
 		}
 	}
 
 	if( sizeOf($callees) > 0 ){
-	  $this->logger->addInfo("Sending message to:".json_encode($callees));
-	  $msg = $payload->send('195',newBzToken('dapiPush'), $callees);
+	  $this->logger->addInfo("Sending message to:".$data['server'].json_encode($callees));
+	  $msg = $payload->send('195', newBzToken('dapiPush'), $callees, $data['server']); // send message
 	  $this->logger->addInfo("Result:".$msg);
 	} else {
 	  $msg = "noCallee";

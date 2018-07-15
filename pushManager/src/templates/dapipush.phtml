@@ -6,15 +6,15 @@ if(isset($_SESSION['username']) && $_SESSION['expire'] > time() ){
 <head>
   <meta charset="UTF-8">
   <title>Push Notification Form</title>
-  
+
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 
-  
+
       <style>
       /* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
-      @import url(http://fonts.googleapis.com/css?family=Open+Sans);
-.btn { display: inline-block; *display: inline; *zoom: 1; padding: 4px 10px 4px; margin-bottom: 0; font-size: 13px; line-height: 18px; color: #333333; text-align: center;text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75); vertical-align: middle; background-color: #f5f5f5; background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6); background-image: -ms-linear-gradient(top, #ffffff, #e6e6e6); background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6)); background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6); background-image: -o-linear-gradient(top, #ffffff, #e6e6e6); background-image: linear-gradient(top, #ffffff, #e6e6e6); background-repeat: repeat-x; filter: progid:dximagetransform.microsoft.gradient(startColorstr=#ffffff, endColorstr=#e6e6e6, GradientType=0); border-color: #e6e6e6 #e6e6e6 #e6e6e6; border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25); border: 1px solid #e6e6e6; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05); cursor: pointer; *margin-left: .3em; }
+      @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+.btn {*display: inline; *zoom: 1; padding: 4px 10px 4px; margin:0 30px 0 30px; font-size: 13px; line-height: 18px; color: #333333; text-align: center;text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75); vertical-align: middle; background-color: #f5f5f5; background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6); background-image: -ms-linear-gradient(top, #ffffff, #e6e6e6); background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6)); background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6); background-image: -o-linear-gradient(top, #ffffff, #e6e6e6); background-image: linear-gradient(top, #ffffff, #e6e6e6); background-repeat: repeat-x; filter: progid:dximagetransform.microsoft.gradient(startColorstr=#ffffff, endColorstr=#e6e6e6, GradientType=0); border-color: #e6e6e6 #e6e6e6 #e6e6e6; border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25); border: 1px solid #e6e6e6; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05); -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05); cursor: pointer; *margin-left: .3em; }
 .btn:hover, .btn:active, .btn.active, .btn.disabled, .btn[disabled] { background-color: #e6e6e6; }
 .btn-large { padding: 9px 14px; font-size: 15px; line-height: normal; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; }
 .btn:hover { color: #333333; text-decoration: none; background-color: #e6e6e6; background-position: 0 -15px; -webkit-transition: background-position 0.1s linear; -moz-transition: background-position 0.1s linear; -ms-transition: background-position 0.1s linear; -o-transition: background-position 0.1s linear; transition: background-position 0.1s linear; }
@@ -22,13 +22,13 @@ if(isset($_SESSION['username']) && $_SESSION['expire'] > time() ){
 .btn-primary.active { color: rgba(255, 255, 255, 0.75); }
 .btn-primary { background-color: #4a77d4; background-image: -moz-linear-gradient(top, #6eb6de, #4a77d4); background-image: -ms-linear-gradient(top, #6eb6de, #4a77d4); background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#6eb6de), to(#4a77d4)); background-image: -webkit-linear-gradient(top, #6eb6de, #4a77d4); background-image: -o-linear-gradient(top, #6eb6de, #4a77d4); background-image: linear-gradient(top, #6eb6de, #4a77d4); background-repeat: repeat-x; filter: progid:dximagetransform.microsoft.gradient(startColorstr=#6eb6de, endColorstr=#4a77d4, GradientType=0);  border: 1px solid #3762bc; text-shadow: 1px 1px 1px rgba(0,0,0,0.4); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.5); }
 .btn-primary:hover, .btn-primary:active, .btn-primary.active, .btn-primary.disabled, .btn-primary[disabled] { filter: none; background-color: #4a77d4; }
-.btn-block { width: 100%; display:block; }
+.btn-block { width: 300px; display:block; }
 
 * { -webkit-box-sizing:border-box; -moz-box-sizing:border-box; -ms-box-sizing:border-box; -o-box-sizing:border-box; box-sizing:border-box; }
 
 html { width: 100%; height:100%; overflow:hidden; }
 
-body { 
+body {
 	width: 100%;
 	height:100%;
 	font-family: 'Open Sans', sans-serif;
@@ -43,35 +43,45 @@ body {
 fieldset {box-shadow:0 0 10px #999; margin:10px; border:1px solid #fff;}
 
 .title h1 { color: #fff; text-shadow: 0 0 10px rgba(0,0,0,0.3); letter-spacing:1px; text-align:center; margin-top:100px; }
+
+.block1 {width:400px;}
 .block1 legend {color:#fff; border:none;}
-.block1 div {color:#fff; background:rgba(0,0,0,0.3);font-size:13px;
-	width: 100%; 
-	float:left;
-	display:inline-block;
+.block1 div {
+	width: 400px;
 	text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
 	margin-right:-10px;
 	padding: 10px;
+	color:#fff; background:rgba(0,0,0,0.3);font-size:13px;
 	}
 
-#ca {width:10%; margin-left:20px;}
+.block2 {width:300px;
+			margin:30px;
+			border-top:0 solid #fff;
+			border-bottom:0px solid;}
+.block2 legend {color:#fff;
+						padding-right:2px;
+						padding-left:20px;
+						border:none; margin-top:10px;
+						margin-bottom:0;}
 
-.block2 {margin-top:25px;margin-bottom:10px;border-top:110px solid #fff; border-bottom:0px solid;}
-.block2 legend {color:#fff; padding-right:2px; padding-left:10px; border:none; margin-top:10px; margin-bottom:0;}
-.push { 
+#ca {width:10%; margin-left:20px;}
+.push {
 	position: absolute;
 	top: 50%;
-	left: 50%;
-	margin: -150px 0 0 -150px;
-	width:300px;
-	height:300px;
+	left: 30%;
+	margin:-150px 0 0 -150px;
+	width:900px;
 }
 
-.push h1,label { color: #fff; text-shadow: 0 0 10px rgba(0,0,0,0.3); letter-spacing:1px; text-align:center; }
-.push label {margin:10px;}
+.push h1,label { font-size:13px;
+						color: #fff;
+							text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+							letter-spacing:1px; text-align:center; }
+.push label {margin:10px; display:inline-block; float:left;}
 
-.push input { 
-	width: 100%; 
-	margin-bottom: 10px; 
+.push input {
+	width: 100%;
+	margin-bottom: 10px;
 	margin-right:-10px;
 	background: rgba(0,0,0,0.3);
 	border: none;
@@ -91,7 +101,7 @@ fieldset {box-shadow:0 0 10px #999; margin:10px; border:1px solid #fff;}
 }
 .push input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgba(255,255,255,0.2); }
 
-.logout {background-color: #008CBA; 
+.logout {background-color: #008CBA;
     border: none;
     color: white;
     padding: 15px 32px;
@@ -100,6 +110,7 @@ fieldset {box-shadow:0 0 10px #999; margin:10px; border:1px solid #fff;}
     display: inline-block;
     font-size: 16px;
 }
+.selectSmall{width:120px;}
     </style>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
@@ -117,33 +128,104 @@ fieldset {box-shadow:0 0 10px #999; margin:10px; border:1px solid #fff;}
 <body>
   <div class="push">
     <form id="pushForm" action="/dapiPush" method="post">
-	<label for="toW">To:</label>
-	<select class="selectpicker" name="toWhom[]" id="toW" multiple>
-		<option value="*">All<option>
-	<?php foreach ($callees as $callee): ?>
-		<option value="<?=urlencode(json_encode(array('apns'=>$callee->apns_token,'apns_badge'=>$callee->badge_apns,'fcm'=>$callee->fcm_token,'fcm_badge'=>$callee->badge_fcm)))?>"><?=$callee->name?></option>
-	<?php endforeach; ?>
-	</select><br>
-	</fieldset>
-	<fieldset class="block2">
-		<legend>alert(iOS)<legend>
-    		<input type="text" name="title" placeholder="Title" required="required" />
-        	<input type="text" name="body" placeholder="Body" required="required" />
-	</fieldset>
-	<fieldset class="block1">
-	<legend>aps(iOS)</legend>
-        <input type="text" name="category" placeholder="Category" />
-        <input type="number" name="badge" placeholder="BadgeNumber" />
-        <input type="text" name="sound" placeholder="Sound" />
-        <input type="text" name="acme" placeholder="action url" />
-	<div>Content-Available<input id="ca" type="checkbox" name="content-available" value="1"/></div>
-        <button type="submit" class="btn btn-primary btn-block btn-large">Push it!</button>
-    </form>
+
+		<div>
+		<label for="toW" style="width:80px">To:</label>
+		<select class="selectpicker" name="toWhom[]" id="toW" multiple>
+			<option value="*">All<option>
+		<?php foreach ($callees as $callee): ?>
+			<option value="<?=urlencode(json_encode(array('apns'=>$callee->apns_token,'apns_badge'=>$callee->badge_apns,'fcm'=>$callee->fcm_token,'fcm_badge'=>$callee->badge_fcm)))?>"><?=empty($callee->device_name) ? $callee->name : $callee->device_name.($callee->isProduction ? '':' Development')?></option>
+		<?php endforeach; ?>
+		</select>
+		</div>
+		<br>
+		<div>
+			<label for="server" style="width:80px">Through:</label>
+			<select class="selectpicker" name="server" id="seveer">
+				<option value="production">Production</option>
+				<option value="development">Development</option>
+			</select>
+		</div>
+		<div>
+		<div style="float:left; display:inline-block;">
+		<fieldset class="block2">
+			<legend>alert </legend>
+	    		<input type="text" name="title" placeholder="Title" required="required" />
+	        	<input type="text" name="body" placeholder="Body" required="required" />
+		</fieldset>
+		<fieldset class="block2">
+			<legend>aps (iOS)</legend>
+		        <input type="text" name="category" placeholder="Category" />
+		        <input type="number" name="badge" placeholder="BadgeNumber" />
+		        <input type="text" name="sound" placeholder="Sound" />
+	    </fieldset>
+	    </div>
+	    <?php $demoUrl ="https://dapi01.bzcentre.com/bigbluebutton/api/join?meetingID=Demo%E5%B1%95%E7%A4%BA%E5%BB%B3&fullName=hello_boss&password=host123&checksum=7297023c89ea641db24709eca3d97f8e0f7e384e&bosscheck=".sha1('hayBosshost123').'abc123'; ?>
+	    <div style="display:inline-block; float:left;">
+	    <fieldset class="block1">
+		    <legend>Misc. </legend>
+	        <input type="text" name="dapi" placeholder="action url"  value="<?php echo $demoUrl; ?>"/>
+	        <input type="text" name="acme1" placeholder="Owner ID" />
+	        <input type="Number" name="acme2" placeholder="Room size" />
+
+	        <div>Room Type
+			<select class="selectpicker" data-width="120px" name="acme3" id="room_type">
+				<option value="0" >Private</option>
+				<option value="1" >Public</option>
+			</select>
+			Is Moderator?
+			<select class="selectpicker" data-width="120px"  name="acme6" id="isMdr">
+				<option value="0" >No</option>
+				<option value="1" >Yes</option>
+			</select>
+			</div>
+
+			<div id="feeType">
+			</div>
+
+	        <input type="text" name="acme7" placeholder="Attendees Array"  value='["Ivy","Lora","Sara","Ivan"]'/>
+			<input type="hidden" name="acme5" value="<?php echo time()*1000; // to make it in sync with as3?>"  id="timestamp"/>
+			<div>Content-Available
+					<input id="ca" type="checkbox" name="content-available" value="1"/>
+					<a href="https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CreatingtheNotificationPayload.html#//apple_ref/doc/uid/TP40008194-CH10-SW1">(For Silent Notification)</a>
+			</div>
+		</fieldset>
+		<button style="width:300px; clear:both;margin-top:30px;" type="submit" class="btn btn-primary btn-block btn-large" onClick="checkFields();">Push it!</button>
+
+	</div>
+	</div>
+   </form>
 </div>
-    <a class="logout" href="/logout">Logout</a> 
+    <a class="logout" href="/logout">Logout</a>
 	<div class="title"> <h1>Dapi Push Notification Manager</h1></div>
     <script src="js/index.js"></script>
+<script>
+$(document).ready(function() {
+	$("#room_type").change(function(){
+		if($(this).val() == 0){
+			if($("#fee_type").length)
+				$("#fee_type").remove();
+			if($("#feeTypeTitle").length)
+				$("#feeTypeTitle").remove();
+		}else{
+			if($("#fee_type").length == 0){
+			var html='<div id="feeTypeTitle">Fee Type:<select name="acme4" id="fee_type"></select></div>';
+			var op=['free','commercial'];
+			$('#feeType').append(html);
+			for(i=0; i<2; i++){
+				$('#fee_type').append($("<option></option>")
+	                    	.attr("value",i)
+       		             	.text(op[i]));
+			}
+			}
+		}
+	});
+});
 
+function checkFields(){
+	if($("#toW").val() == null) return false;
+}
+</script>
 </body>
 </html>
 <?php
