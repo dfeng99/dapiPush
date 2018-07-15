@@ -90,3 +90,4 @@ There is a simple user interface provided. You can find it in the PushManager fo
  2. Create user for Push Manager for accessing the database, and modify the login information in the src/public/index.php
  3. Modify the authentication mechanism to connect to your token provider server so that the gateway can get the necessary target token information, the gateway itself will not handle the iOS push tokens.
  4. If you do not configure /pushTo as the name of push handler in you Nginx-clojure configuraiton then you need to modify it in the code as well.
+ 5. pushManager retrives message receivers from an independant http server, you should build your own tables accroding to the code in the src/public/index.php
