@@ -42,7 +42,9 @@ Since most of the supported projects are not natually build for this purpose. We
    5. Setup development environment according to [Pussy](https://github.com/relayrides/pushy/wiki) and [smack](https://www.igniterealtime.org/projects/smack/)
     1. Make sure the nginx-clojure jar files and all dependencies are in your CLASSPATH.
     2. Configure the IDE which you are familiar with (Eclipse,Intellij IDEA...).
-    3. Modify each secret keys according to your configruations in dapiSecrets.java.
+    3. Rename dapiSecrets.java.dist to dapiSecrets.java
+    4. Modify each secret keys in dapiSecrets.java according to your configruations.
+    5. Build the project and move the generated class files to the place according to your nginx-clojure web and java configuration.
     
 6. There you go! Now start the nginx web server with the following command.
 
