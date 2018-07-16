@@ -3,9 +3,10 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 require '../vendor/autoload.php';
+require 'configurations.php';
+
 function newBzToken($seed){
-		$_hoicoi_token = "fc1b268ccc95e15c646cd9886fc8ee4b43835044c98669d19765c852d229f."; // This should be the same as the hoicoi Api server/DapiAir sides seting
-	return sha1($seed.$_hoicoi_token);
+    return sha1($seed.HOICOI_TOKEN);
 }
 
 spl_autoload_register(function ($classname) {
@@ -16,8 +17,8 @@ $config['displayErrorDetails'] = true;
 $config['addContentLengthHeader'] = false;
 
 $config['db']['host']   = "localhost";
-$config['db']['user']   = "pushManager";
-$config['db']['pass']   = "ncsoowDw)000";
+$config['db']['user']   = MgrDbUser;
+$config['db']['pass']   = MgrDbPwd;
 $config['db']['dbname'] = "DapiPush";
 
 $app = new \Slim\App(["settings" => $config]);
@@ -44,12 +45,15 @@ $container = $app->getContainer();
     		$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     		return $pdo;
 	};
-	//get callees
+
+	// *** IMPORTANT
+	// *** get callees, Developers should provide your own way to collect data for $container['callees']
+	// *** example below, we store receivers token in an independent server, and requests them from a http query string
 	$container['callees'] = function($c) {
 		// get all callees' token
 		$userData=array(
-		        'username' => 'pushGateway', // tokens server login information
-		        'password' => 'jas8kjDa99jk0wjegh',
+		        'username' => GWUser, // tokens server login information
+		        'password' => GWPWD,
 		        'invitees' => '*'
 		);
 		$postdata = http_build_query($userData);
@@ -61,7 +65,7 @@ $container = $app->getContainer();
 				)
 			);
 		$context = stream_context_create($opts);
-		$callees = file_get_contents("https://www.bzcentre.com/index.php?option=com_hoicoiapi&task=getInviteesToken&bzToken=".newBzToken($userData['password']),false,$context);
+		$callees = file_get_contents(MgrHost.Query4Callees."&bzToken=".newBzToken($userData['password']),false,$context);
 		$toWhom = json_decode($callees);
 		return $toWhom;
 	};

@@ -1,0 +1,8 @@
+<?php
+const HOICOI_TOKEN =""; // This should be the same as the hoicoi Api server/DapiAir sides seting
+const MgrDbUser = "";
+const MgrDbPwd = "";
+const MgrHost   = "htts://xxx.xxx.xxx";
+const Query4Callees = "/queryString";
+const GWUser    = "";
+const GWPWD     = "";
