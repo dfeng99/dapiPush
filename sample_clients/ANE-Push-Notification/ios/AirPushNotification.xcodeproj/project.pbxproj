@@ -1,0 +1,363 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		065805821E41DF0100375843 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AC0EBB0151A38F300A3043E /* Foundation.framework */; };
+		065805831E41DF0900375843 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AC0EBC1151A3BEE00A3043E /* UIKit.framework */; };
+		065805871E41E2DA00375843 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 065805861E41E2DA00375843 /* CoreMotion.framework */; };
+		067342091F4E7AE400706BA7 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 067342081F4E7AE400706BA7 /* UserNotifications.framework */; };
+		06C0EA0A1E5A77CE008E2316 /* TWMessageBarManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 06C0EA061E5A77CE008E2316 /* TWMessageBarManager.h */; };
+		06C0EA0B1E5A77CE008E2316 /* TWMessageBarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 06C0EA071E5A77CE008E2316 /* TWMessageBarManager.m */; };
+		17007FB917398624009C1500 /* FlashRuntimeExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 17007FB817398624009C1500 /* FlashRuntimeExtensions.h */; };
+		5A2CD0891C498E0F00B529C3 /* CTAppController+APNAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A2CD0871C498E0F00B529C3 /* CTAppController+APNAdditions.h */; };
+		5A2CD08A1C498E0F00B529C3 /* CTAppController+APNAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2CD0881C498E0F00B529C3 /* CTAppController+APNAdditions.m */; };
+		5A68E25E151AA23100873313 /* AirPushNotification.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A68E25D151AA23100873313 /* AirPushNotification.h */; };
+		5AB4B519167A84370094293C /* StarterNotificationChecker.h in Headers */ = {isa = PBXBuildFile; fileRef = 5AB4B517167A84370094293C /* StarterNotificationChecker.h */; };
+		5AB4B51A167A84370094293C /* StarterNotificationChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB4B518167A84370094293C /* StarterNotificationChecker.m */; };
+		5AC0EBB7151A38F400A3043E /* AirPushNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AC0EBB6151A38F400A3043E /* AirPushNotification.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		065805861E41E2DA00375843 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		067342081F4E7AE400706BA7 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		06C0EA001E5A77CE008E2316 /* icon-error.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-error.png"; sourceTree = "<group>"; };
+		06C0EA011E5A77CE008E2316 /* icon-error@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-error@2x.png"; sourceTree = "<group>"; };
+		06C0EA021E5A77CE008E2316 /* icon-info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-info.png"; sourceTree = "<group>"; };
+		06C0EA031E5A77CE008E2316 /* icon-info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-info@2x.png"; sourceTree = "<group>"; };
+		06C0EA041E5A77CE008E2316 /* icon-success.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-success.png"; sourceTree = "<group>"; };
+		06C0EA051E5A77CE008E2316 /* icon-success@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-success@2x.png"; sourceTree = "<group>"; };
+		06C0EA061E5A77CE008E2316 /* TWMessageBarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWMessageBarManager.h; sourceTree = "<group>"; };
+		06C0EA071E5A77CE008E2316 /* TWMessageBarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWMessageBarManager.m; sourceTree = "<group>"; };
+		06C0EA081E5A77CE008E2316 /* TWMessageBarManager.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TWMessageBarManager.podspec; sourceTree = "<group>"; };
+		17007FB817398624009C1500 /* FlashRuntimeExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlashRuntimeExtensions.h; sourceTree = "<group>"; };
+		5A2CD0871C498E0F00B529C3 /* CTAppController+APNAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CTAppController+APNAdditions.h"; sourceTree = "<group>"; };
+		5A2CD0881C498E0F00B529C3 /* CTAppController+APNAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CTAppController+APNAdditions.m"; sourceTree = "<group>"; };
+		5A68E25D151AA23100873313 /* AirPushNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirPushNotification.h; sourceTree = "<group>"; };
+		5AB4B517167A84370094293C /* StarterNotificationChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarterNotificationChecker.h; sourceTree = "<group>"; };
+		5AB4B518167A84370094293C /* StarterNotificationChecker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarterNotificationChecker.m; sourceTree = "<group>"; };
+		5AC0EBAD151A38F300A3043E /* libAirPushNotification.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAirPushNotification.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		5AC0EBB0151A38F300A3043E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		5AC0EBB4151A38F300A3043E /* AirPushNotification-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AirPushNotification-Prefix.pch"; sourceTree = "<group>"; };
+		5AC0EBB6151A38F400A3043E /* AirPushNotification.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AirPushNotification.m; sourceTree = "<group>"; };
+		5AC0EBC1151A3BEE00A3043E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5AC0EBAA151A38F300A3043E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				067342091F4E7AE400706BA7 /* UserNotifications.framework in Frameworks */,
+				065805871E41E2DA00375843 /* CoreMotion.framework in Frameworks */,
+				065805831E41DF0900375843 /* UIKit.framework in Frameworks */,
+				065805821E41DF0100375843 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		06C0E9FD1E5A77CE008E2316 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				06C0E9FF1E5A77CE008E2316 /* Icons */,
+				06C0EA061E5A77CE008E2316 /* TWMessageBarManager.h */,
+				06C0EA071E5A77CE008E2316 /* TWMessageBarManager.m */,
+				06C0EA081E5A77CE008E2316 /* TWMessageBarManager.podspec */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		06C0E9FF1E5A77CE008E2316 /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				06C0EA001E5A77CE008E2316 /* icon-error.png */,
+				06C0EA011E5A77CE008E2316 /* icon-error@2x.png */,
+				06C0EA021E5A77CE008E2316 /* icon-info.png */,
+				06C0EA031E5A77CE008E2316 /* icon-info@2x.png */,
+				06C0EA041E5A77CE008E2316 /* icon-success.png */,
+				06C0EA051E5A77CE008E2316 /* icon-success@2x.png */,
+			);
+			path = Icons;
+			sourceTree = "<group>";
+		};
+		5AC0EBA2151A38F300A3043E = {
+			isa = PBXGroup;
+			children = (
+				5AC0EBB2151A38F300A3043E /* AirPushNotification */,
+				5AC0EBAF151A38F300A3043E /* Frameworks */,
+				5AC0EBAE151A38F300A3043E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5AC0EBAE151A38F300A3043E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5AC0EBAD151A38F300A3043E /* libAirPushNotification.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5AC0EBAF151A38F300A3043E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				067342081F4E7AE400706BA7 /* UserNotifications.framework */,
+				065805861E41E2DA00375843 /* CoreMotion.framework */,
+				5AC0EBC1151A3BEE00A3043E /* UIKit.framework */,
+				5AC0EBB0151A38F300A3043E /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5AC0EBB2151A38F300A3043E /* AirPushNotification */ = {
+			isa = PBXGroup;
+			children = (
+				17007FB817398624009C1500 /* FlashRuntimeExtensions.h */,
+				5A68E25D151AA23100873313 /* AirPushNotification.h */,
+				5AC0EBB6151A38F400A3043E /* AirPushNotification.m */,
+				5AB4B517167A84370094293C /* StarterNotificationChecker.h */,
+				5AB4B518167A84370094293C /* StarterNotificationChecker.m */,
+				5A2CD0871C498E0F00B529C3 /* CTAppController+APNAdditions.h */,
+				5A2CD0881C498E0F00B529C3 /* CTAppController+APNAdditions.m */,
+				06C0E9FD1E5A77CE008E2316 /* Classes */,
+				5AC0EBB3151A38F300A3043E /* Supporting Files */,
+			);
+			path = AirPushNotification;
+			sourceTree = "<group>";
+		};
+		5AC0EBB3151A38F300A3043E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				5AC0EBB4151A38F300A3043E /* AirPushNotification-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		5AC0EBAB151A38F300A3043E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5A68E25E151AA23100873313 /* AirPushNotification.h in Headers */,
+				06C0EA0A1E5A77CE008E2316 /* TWMessageBarManager.h in Headers */,
+				5A2CD0891C498E0F00B529C3 /* CTAppController+APNAdditions.h in Headers */,
+				5AB4B519167A84370094293C /* StarterNotificationChecker.h in Headers */,
+				17007FB917398624009C1500 /* FlashRuntimeExtensions.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		5AC0EBAC151A38F300A3043E /* AirPushNotification */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5AC0EBBA151A38F400A3043E /* Build configuration list for PBXNativeTarget "AirPushNotification" */;
+			buildPhases = (
+				5AC0EBA9151A38F300A3043E /* Sources */,
+				5AC0EBAA151A38F300A3043E /* Frameworks */,
+				5AC0EBAB151A38F300A3043E /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AirPushNotification;
+			productName = AirPushNotification;
+			productReference = 5AC0EBAD151A38F300A3043E /* libAirPushNotification.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5AC0EBA4151A38F300A3043E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0930;
+			};
+			buildConfigurationList = 5AC0EBA7151A38F300A3043E /* Build configuration list for PBXProject "AirPushNotification" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 5AC0EBA2151A38F300A3043E;
+			productRefGroup = 5AC0EBAE151A38F300A3043E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5AC0EBAC151A38F300A3043E /* AirPushNotification */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5AC0EBA9151A38F300A3043E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5A2CD08A1C498E0F00B529C3 /* CTAppController+APNAdditions.m in Sources */,
+				06C0EA0B1E5A77CE008E2316 /* TWMessageBarManager.m in Sources */,
+				5AC0EBB7151A38F400A3043E /* AirPushNotification.m in Sources */,
+				5AB4B51A167A84370094293C /* StarterNotificationChecker.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		5AC0EBB8151A38F400A3043E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = "";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INSTALL_PATH = ../;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SYMROOT = build;
+			};
+			name = Debug;
+		};
+		5AC0EBB9151A38F400A3043E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_VERSION = "";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INSTALL_PATH = ../;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ONLY_ACTIVE_ARCH = NO;
+				SDKROOT = iphoneos;
+				SYMROOT = build;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5AC0EBBB151A38F400A3043E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				DSTROOT = /tmp/AirPushNotification.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AirPushNotification/AirPushNotification-Prefix.pch";
+				GCC_VERSION = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5AC0EBBC151A38F400A3043E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				DSTROOT = /tmp/AirPushNotification.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AirPushNotification/AirPushNotification-Prefix.pch";
+				GCC_VERSION = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5AC0EBA7151A38F300A3043E /* Build configuration list for PBXProject "AirPushNotification" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5AC0EBB8151A38F400A3043E /* Debug */,
+				5AC0EBB9151A38F400A3043E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5AC0EBBA151A38F400A3043E /* Build configuration list for PBXNativeTarget "AirPushNotification" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5AC0EBBB151A38F400A3043E /* Debug */,
+				5AC0EBBC151A38F400A3043E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5AC0EBA4151A38F300A3043E /* Project object */;
+}
