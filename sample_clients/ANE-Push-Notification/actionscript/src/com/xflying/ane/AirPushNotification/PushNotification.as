@@ -1,16 +1,16 @@
 package com.xflying.ane.AirPushNotification
 {
 	import flash.events.EventDispatcher;
+	import flash.events.StageOrientationEvent;
 	import flash.events.StatusEvent;
 	import flash.events.InvokeEvent;
 	import flash.external.ExtensionContext;
 	import flash.system.Capabilities;
-	import flash.filesystem.File;
 	import flash.desktop.NativeApplication;
-
 	import com.xflying.ane.AirPushNotification.PushNotificationEvent;
-    
-    public class PushNotification extends EventDispatcher 
+	import mx.core.FlexGlobals;
+
+public class PushNotification extends EventDispatcher
 	{  
 		private const LOG:String = "[PushNotification-as3]";
 		private const iOS:Boolean = Capabilities.version.indexOf('IOS') >= 0 ? true : false;
@@ -27,9 +27,20 @@ package com.xflying.ane.AirPushNotification
 		private static var extCtx:ExtensionContext = null;
         
         private static var _instance:PushNotification;
+
+		private var _orientation:String = "rotatedRight";
 		
 		private var _isInitialized:Boolean=false;
-        
+
+		public function set orientation(ori:String):void{
+			_orientation = ori;
+			if(iOS)
+				extCtx.call("setMessageOrientation", ori);
+		}
+
+		public function get orientation():String {
+			return _orientation;
+		}
 		
         public function PushNotification()
 		{
@@ -43,6 +54,7 @@ package com.xflying.ane.AirPushNotification
 					if (extCtx != null)
 					{
 						extCtx.addEventListener(StatusEvent.STATUS, onStatus);
+						FlexGlobals.topLevelApplication.stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGE, stageOrientationChangingHandler);
 						_isInitialized = true;
 					} else
 					{
@@ -124,7 +136,7 @@ package com.xflying.ane.AirPushNotification
 			}
 		}
 		
-		public function showNotificationsForground(title:String, body:String, goURL:String):void{
+		public function showNotificationsForground(title:String, body:String, goURL:String = null):void{
 			if (iOS && this.notificationsEnabled)
 			{
 				extCtx.call("showNotificationsForground", title, body, goURL);
@@ -201,6 +213,11 @@ package com.xflying.ane.AirPushNotification
 		
 		public static function fetchStarterNotification():void{
 			extCtx.call("fetchStarterNotification");
+		}
+
+		private function stageOrientationChangingHandler(e:StageOrientationEvent):void{
+			orientation = e.afterOrientation;
+			trace(LOG, "set push message orientation to",orientation);
 		}
 
 //		public function storeTrackingNotifUrl(url:String):void
@@ -355,6 +372,6 @@ package com.xflying.ane.AirPushNotification
 				}
 			}
 		}
-		
+
 	}
 }

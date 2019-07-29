@@ -87,7 +87,7 @@ static UIColor *kTWDefaultMessageBarStyleSheetInfoStrokeColor = nil;
 - (CGRect)orientFrame:(CGRect)frame;
 
 // Notifications
-- (void)didChangeDeviceOrientation:(NSNotification *)notification;
+- (void)didChangeStatusBarOrientation:(NSNotification *)notification;
 
 @end
 
@@ -238,10 +238,10 @@ static UIColor *kTWDefaultMessageBarStyleSheetInfoStrokeColor = nil;
 	
     messageView.statusBarStyle = statusBarStyle;
     messageView.statusBarHidden = statusBarHidden;
-    
+
     [[self messageWindowView] addSubview:messageView];
     [[self messageWindowView] bringSubviewToFront:messageView];
-    
+
     [self.messageBarQueue addObject:messageView];
     
     if (!self.messageVisible)
@@ -394,7 +394,9 @@ static UIColor *kTWDefaultMessageBarStyleSheetInfoStrokeColor = nil;
         self.messageWindow.windowLevel = UIWindowLevelNormal;
         self.messageWindow.backgroundColor = [UIColor clearColor];
         self.messageWindow.rootViewController = [[TWMessageBarViewController alloc] init];
+
     }
+
     return (TWMessageBarViewController *)self.messageWindow.rootViewController;
 }
 
@@ -482,8 +484,8 @@ static UIColor *kTWDefaultMessageBarStyleSheetInfoStrokeColor = nil;
         
         _hasCallback = NO;
         _hit = NO;
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didChangeDeviceOrientation:) name:UIDeviceOrientationDidChangeNotification object:nil];
+		
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didChangeStatusBarOrientation:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
     }
     return self;
 }
@@ -492,7 +494,9 @@ static UIColor *kTWDefaultMessageBarStyleSheetInfoStrokeColor = nil;
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
+//	NSNumber *orig = [NSNumber numberWithInteger:UIInterfaceOrientationUnknown];
+//	[[UIDevice currentDevice] setValue:orig forKey:@"orientation"];
 }
 
 #pragma mark - Drawing
@@ -733,10 +737,84 @@ static UIColor *kTWDefaultMessageBarStyleSheetInfoStrokeColor = nil;
 
 #pragma mark - Notifications
 
-- (void)didChangeDeviceOrientation:(NSNotification *)notification
+- (void)didChangeStatusBarOrientation:(NSNotification *)notification
 {
     self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, [self statusBarFrame].size.width, self.frame.size.height);
     [self setNeedsDisplay];
+}
+
+- (void) traitCollectionDidChange: (UITraitCollection *) previousTraitCollection {
+	[super traitCollectionDidChange: previousTraitCollection];
+	NSString *pvSize, *svSize, *shSize, *phSize;
+	NSString *ori = @"unspecified";
+	if (self.traitCollection.verticalSizeClass != previousTraitCollection.verticalSizeClass) {
+		switch (previousTraitCollection.verticalSizeClass) {
+			case UIUserInterfaceSizeClassCompact:
+				pvSize = @"Compact";
+				break;
+			case UIUserInterfaceSizeClassRegular:
+				pvSize = @"Regular";
+				break;
+			case UIUserInterfaceSizeClassUnspecified:
+			default:
+				pvSize = @"unspecified";
+				break;
+		}
+		switch (self.traitCollection.verticalSizeClass) {
+			case UIUserInterfaceSizeClassCompact:
+				svSize = @"Compact";
+				break;
+			case UIUserInterfaceSizeClassRegular:
+				svSize = @"Regular";
+				break;
+			case UIUserInterfaceSizeClassUnspecified:
+			default:
+				svSize = @"unspecified";
+				break;
+		}
+	}
+	
+	if(self.traitCollection.horizontalSizeClass != previousTraitCollection.horizontalSizeClass){
+		switch (self.traitCollection.horizontalSizeClass) {
+			case UIUserInterfaceSizeClassCompact:
+				shSize = @"Compact";
+				break;
+			case UIUserInterfaceSizeClassRegular:
+				shSize = @"Regular";
+				break;
+			case UIUserInterfaceSizeClassUnspecified:
+			default:
+				shSize = @"unspecified";
+				break;
+		}
+		switch (previousTraitCollection.horizontalSizeClass) {
+			case UIUserInterfaceSizeClassCompact:
+				phSize = @"Compact";
+				break;
+			case UIUserInterfaceSizeClassRegular:
+				phSize = @"Regular";
+				break;
+			case UIUserInterfaceSizeClassUnspecified:
+			default:
+				phSize = @"unspecified";
+				break;
+		}
+		if([shSize isEqualToString:@"Compact"] || [svSize isEqualToString:@"Compact"]){
+			ori = @"iPhone";
+			if([svSize isEqualToString:@"Regular"])
+				ori = [ori stringByAppendingString:@" Portrait"];
+			else if([shSize isEqualToString:@"Compact"])
+				ori = [ori stringByAppendingString:@" Landscape"];
+			else
+				ori = [ori stringByAppendingString:@" Plus Landscape"];
+		} else if(![shSize isEqualToString:@"unspecified"] && ![svSize isEqualToString:@"unspecified"]) {
+			ori = @"iPad";
+		}
+		
+		CGRect scrRect = [[UIScreen mainScreen] bounds];
+		NSLog(@"[AirPush] traitCollectionDidChange current ori:%@, screen: w:%f h:%f"
+			  ,ori, scrRect.size.width, scrRect.size.height);
+	}
 }
 
 @end

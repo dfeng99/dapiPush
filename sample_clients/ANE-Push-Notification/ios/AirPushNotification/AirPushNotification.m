@@ -33,9 +33,9 @@
 
 NSString *const storedNotifTrackingUrl = @"storedNotifTrackingUrl";
 FREContext myCtx = nil;
+NSString *orientation = @"rotatedRight";
 
 @implementation AirPushNotification
-
 //empty delegate functions, stubbed signature is so we can find this method in the delegate
 //and override it with our custom implementation
 //iOS < 10
@@ -434,7 +434,8 @@ DEFINE_ANE_FUNCTION(showNotificationsForground)
 	NSString *title = [NSString stringWithUTF8String:(char*)utf8_title];
 	NSString *body = [NSString stringWithUTF8String:(char*)utf8_body];
 	NSString *action = [NSString stringWithUTF8String:(char*)utf8_action];
-
+	
+	NSLog(@"[AirPush] Show message:%@ %@", title, body);
 	[[TWMessageBarManager sharedInstance]
 	 showMessageWithTitle:title
 	 description:body
@@ -445,6 +446,53 @@ DEFINE_ANE_FUNCTION(showNotificationsForground)
 		 // it's wierd, can't call FRE within the block, so make it as method.
 	 }];
 	
+	return nil;
+}
+
+DEFINE_ANE_FUNCTION(setMessageOrientation)
+{
+	uint32_t string_length;
+	const uint8_t *utf8_orientation;
+	
+	FREGetObjectAsUTF8(argv[0],&string_length, &utf8_orientation);
+	orientation = [NSString stringWithUTF8String:(char*)utf8_orientation];
+	
+	CGFloat curWidth = [[[UIApplication sharedApplication] keyWindow] rootViewController].view.frame.size.width;
+	CGFloat curHeight= [[[UIApplication sharedApplication] keyWindow] rootViewController].view.frame.size.height;
+	
+	NSLog(@"[AirPush] Requested orientation:%@, Current:%@"
+		  , orientation
+		  ,	(curWidth > curHeight ? @"Landscape" : @"Portrait")
+		  );
+	
+	if([orientation isEqualToString:@""] || orientation == nil){
+		if(curHeight < curWidth){
+			orientation = @"rotatedRight";
+		} else {
+			orientation = @"default";
+		}
+	}
+	
+	if([UIDevice currentDevice].orientation != UIDeviceOrientationUnknown){
+		[[UIDevice currentDevice] setValue:[NSNumber numberWithInteger:UIInterfaceOrientationUnknown] forKey:@"orientation"];
+	}
+	
+	NSNumber *orig;
+	// as3 StageOrientation constants
+	if([orientation isEqualToString:@"rotatedRight"]) {
+		orig = [NSNumber numberWithInteger:UIInterfaceOrientationLandscapeRight];
+	} else if([orientation isEqualToString:@"rotatedLeft"]){
+		orig = [NSNumber numberWithInteger:UIInterfaceOrientationLandscapeLeft];
+	} else if([orientation isEqualToString:@"default"]){
+		orig = [NSNumber numberWithInteger:UIInterfaceOrientationPortrait];
+	} else if([orientation isEqualToString:@"upsideDown"]){
+		orig = [NSNumber numberWithInteger:UIInterfaceOrientationPortraitUpsideDown];
+	} else if([orientation isEqualToString:@"unknown"]){
+		orig = [NSNumber numberWithInteger:UIInterfaceOrientationUnknown];
+	}
+	
+	NSLog(@"[AirPush] set orientation to %@", orientation);
+	[[UIDevice currentDevice] setValue:orig forKey:@"orientation"];
 	return nil;
 }
 
@@ -529,7 +577,7 @@ void AirPushContextInitializer(void* extData, const uint8_t* ctxType, FREContext
     ///////// end of delegate injection / modification code
     
     // Register the links btwn AS3 and ObjC. (dont forget to modify the nbFuntionsToLink integer if you are adding/removing functions)
-    uint32_t nbFuntionsToLink = 12;
+    uint32_t nbFuntionsToLink = 13;
     *numFunctionsToTest = nbFuntionsToLink;
     
     FRENamedFunction* func = (FRENamedFunction*) malloc(sizeof(FRENamedFunction) * nbFuntionsToLink);
@@ -581,7 +629,10 @@ void AirPushContextInitializer(void* extData, const uint8_t* ctxType, FREContext
 	func[11].name = (const uint8_t*) "showNotificationsForground";
 	func[11].functionData = NULL;
 	func[11].function = &showNotificationsForground;
-	
+
+	func[12].name = (const uint8_t*) "setMessageOrientation";
+	func[12].functionData = NULL;
+	func[12].function = &setMessageOrientation;
     *functionsToSet = func;
     
     myCtx = ctx;

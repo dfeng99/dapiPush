@@ -30,6 +30,7 @@
 
 +(NSString*) convertToJSonString:(NSDictionary*)dict;
 +(void) trackRemoteNofiticationFromApp:(UIApplication*)app andUserInfo:(NSDictionary*)userInfo;
+
 @end
 
 FREObject setBadgeNb(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]);
@@ -44,6 +45,7 @@ FREObject getNotificationsEnabled(FREContext ctx, void* funcData, uint32_t argc,
 FREObject openAppNotificationSettings(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]);
 FREObject storeNotifTrackingInfo(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]);
 FREObject showNotificationsForground(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]);
+FREObject setMessageOrientation(FREContext ctx, void* funcData, uint32_t argc, FREObject argv[]);
 
 NSOperatingSystemVersion ios9_3 = (NSOperatingSystemVersion){9, 3};
 
